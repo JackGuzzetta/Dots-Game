@@ -22,12 +22,12 @@ public class GameMain
   /**
    * Cell size in pixels.
    */
-  public static final int SIZE = 70; 
+  public static final int SIZE = 65; 
 
   /**
    * Dot size in pixels, must be less than or equal to SIZE.
    */
-  public static final int DOT_SIZE = 40; 
+  public static final int DOT_SIZE = 35; 
 
   /**
    * Font size for displaying score.
@@ -37,7 +37,7 @@ public class GameMain
   /**
    * Background color.
    */
-  public static final Color BACKGROUND_COLOR = Color.LIGHT_GRAY;
+  public static final Color BACKGROUND_COLOR = Color.DARK_GRAY;
   
   /**
    * Colors for icon types (types outside range 0 - 7 will display as black).
@@ -61,8 +61,8 @@ public class GameMain
   private static void create()
   {
     String[] testgrid = {
-      "0 0 1 1",
-      "8 5 3 1",
+      "0 0 0 0",
+      "8 0 0 0",
       "5 5 3 3 "
     };
 

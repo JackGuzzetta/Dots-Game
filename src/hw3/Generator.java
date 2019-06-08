@@ -38,7 +38,7 @@ public class Generator
    */
   public Generator(int numTypes, Random rand)
   {
-	  x=numTypes;
+	  x=numTypes+1;
 	  int randomNum=rand.nextInt(numTypes);
     optionDot = new Dot(randomNum);
   }

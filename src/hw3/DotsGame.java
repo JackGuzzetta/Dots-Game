@@ -15,6 +15,7 @@ import javax.swing.Icon;
 import api.Descriptor;
 import api.Dot;
 import api.Util;
+import java.lang.Math; 
 
 /**
  * This class encapsulates the game logic for a video game called Dots. The game
@@ -199,27 +200,24 @@ public class DotsGame {
 	public ArrayList<Descriptor> release() {
 
 		ArrayList<Descriptor> list = new ArrayList<Descriptor>();
-		    if ((selectionList.size() >= 4)&&(selection.equals(firstDot))) {
-			// if selected dots completes a loop all other dots of the same type get nulled
+		if ((selectionList.size() >= 4) && (selection.equals(firstDot))) {
+			// if selected dots completes a loop all other dots of the same type
+			// get nulled
 			Dot temp = selectionList.get(0).getDot();
 			list = new ArrayList<Descriptor>();
-			for (int i = 0; i <= grid.length-1; i++) 
-			   {
-				for (int j = 0; j < grid[0].length; j++) 
-				   {
-					if (grid[i][j].equals(temp)) 
-					   {
+			for (int i = 0; i < grid.length-1; i++) {
+				for (int j = 0; j < grid[0].length; j++) {
+					if (grid[i][j].equals(temp)) {
 						score += 1;
 						list.add(new Descriptor(i, j, grid[i][j]));
 						grid[i][j] = null;
-						selectionList.clear();
 
-					   }
+					}
 				}
 			}
 		}
 
-		else if (selectionList.size() >= 2) {
+		else if (selectionList.size() >= 3) {
 
 			list = new ArrayList<Descriptor>();
 			for (int i = 0; i < selectionList.size(); i++) {
@@ -227,12 +225,11 @@ public class DotsGame {
 				list.add(desc);
 				grid[desc.row()][desc.col()] = null;
 			}
-			score += selectionList.size();
+			score += Math.pow(selectionList.size(),2);
 		}
 		selectionList.clear();
 		return list;
 	}
-
 
 	/**
 	 * Collapses the dots in the given column of the current game grid such that
@@ -249,36 +246,31 @@ public class DotsGame {
 	 */
 	public ArrayList<Descriptor> collapseColumn(int col) {
 		ArrayList<Descriptor> list = new ArrayList<Descriptor>();
-		Descriptor[] nullDots = new Descriptor[grid.length];
-		int pointer = 0;
-		for (int i = grid.length - 1; i >= 0; i--) {
+		int count = 0;
+		for (int i = grid.length - 1; i > 0; i--) {
 			if (grid[i][col] == null) {
-				nullDots[pointer] = new Descriptor(i, col, null);
-				pointer++;
-			} else {
-				if (nullDots[0] != null) {
-					
-					Descriptor d = nullDots[0];
-					shiftArray(nullDots);
-					pointer--;
-					Dot temp = grid[i][col];
-					grid[i][col] = grid[d.row()][d.col()];
-					grid[d.row()][d.col()] = temp;
-					Descriptor desc = new Descriptor(d.row(), d.col(), grid[i][col]);
-					desc.setPreviousRow(i);
-					list.add(desc);
-					pointer--;
+				count++;
+			}
+		}
+		for (int j = 0; j <= count; j++) {
+			for (int i = grid.length - 1; i > 0; i--) {
+				if (grid[i][col] == null) {
+
+					if (grid[i - 1][col] != null) {
+						Dot temp = grid[i - 1][col];
+						grid[i - 1][col] = null;
+						grid[i][col] = temp;
+						Descriptor des = new Descriptor(i, col, grid[i][col]);
+						list.add(des);
+					}
 				}
 			}
 		}
 		return list;
 	}
 
-	private void shiftArray(Descriptor[] nullDots) {
-		for (int i = 1; i < nullDots.length; i++) {
-			nullDots[i - 1] = nullDots[i];
-		}
-	}
+	
+
 	/**
 	 * Fills the null grid positions (if any) at the top of the given column in
 	 * the current game grid. The returned list contains Descriptors
@@ -298,8 +290,9 @@ public class DotsGame {
 			if (grid[i][col] == null) {
 				grid[i][col] = dotGenerator.generate();
 				Descriptor d = new Descriptor(i, col, grid[i][col]);
-				d.setPreviousRow(i);
+
 				list.add(d);
+				d.setPreviousRow(i);
 			}
 
 			else
@@ -311,7 +304,10 @@ public class DotsGame {
 
 	}
 
-	}
-/*I know it's super glitchy but I spent about a week an it, worked on it for about 10 hours with tutors 
-and pulled two all nighters in a row to get this far. So I may not be completly satisfied with it but
-I am proud of what I have.*/
+}
+/*
+ * I know it's super glitchy but I spent about a week an it, worked on it for
+ * about 10 hours with tutors and pulled two all nighters in a row to get this
+ * far. So I may not be completly satisfied with it but I am proud of what I
+ * have.
+ */
