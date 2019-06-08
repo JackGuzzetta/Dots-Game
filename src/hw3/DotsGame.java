@@ -1,6 +1,4 @@
-/*I know it's super glitchy but I spent about a week an it, worked on it for about 10 hours with tutors 
-and pulled two all nighters in a row to get this far. So I may not be completly satisfied with it but
-I am proud of what I have.*/
+
 /**
  * Creates a board for the game, then mutates it depending on what the user has selected.
  * 
@@ -305,9 +303,3 @@ public class DotsGame {
 	}
 
 }
-/*
- * I know it's super glitchy but I spent about a week an it, worked on it for
- * about 10 hours with tutors and pulled two all nighters in a row to get this
- * far. So I may not be completly satisfied with it but I am proud of what I
- * have.
- */
